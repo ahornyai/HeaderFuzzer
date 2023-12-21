@@ -1,4 +1,4 @@
-package me.ahornyai.tabs;
+package me.ahornyai.headerfuzzer.tabs;
 
 import burp.api.montoya.http.message.HttpHeader;
 import lombok.Data;

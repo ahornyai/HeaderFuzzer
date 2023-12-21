@@ -1,11 +1,11 @@
-package me.ahornyai.menu;
+package me.ahornyai.headerfuzzer.menu;
 
 import burp.api.montoya.MontoyaApi;
 import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.ui.contextmenu.ContextMenuEvent;
 import burp.api.montoya.ui.contextmenu.ContextMenuItemsProvider;
 import lombok.RequiredArgsConstructor;
-import me.ahornyai.tabs.FuzzerTab;
+import me.ahornyai.headerfuzzer.tabs.FuzzerTab;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +24,7 @@ public class FuzzerContextMenuProvider implements ContextMenuItemsProvider {
 
         HttpRequestResponse requestResponse = event.messageEditorRequestResponse().isPresent() ? event.messageEditorRequestResponse().get().requestResponse() : event.selectedRequestResponses().get(0);
 
-        retrieveRequestItem.addActionListener(e -> {
-            fuzzerTab.setRequest(requestResponse.request());
-
-        });
+        retrieveRequestItem.addActionListener(e -> fuzzerTab.setRequest(requestResponse.request()));
         menuItemList.add(retrieveRequestItem);
 
         return menuItemList;

@@ -1,9 +1,9 @@
-package me.ahornyai;
+package me.ahornyai.headerfuzzer;
 
 import burp.api.montoya.BurpExtension;
 import burp.api.montoya.MontoyaApi;
-import me.ahornyai.menu.FuzzerContextMenuProvider;
-import me.ahornyai.tabs.FuzzerTab;
+import me.ahornyai.headerfuzzer.menu.FuzzerContextMenuProvider;
+import me.ahornyai.headerfuzzer.tabs.FuzzerTab;
 
 public class HeaderFuzzer implements BurpExtension {
 
