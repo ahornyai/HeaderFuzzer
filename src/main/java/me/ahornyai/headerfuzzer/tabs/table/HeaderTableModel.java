@@ -1,4 +1,4 @@
-package me.ahornyai.headerfuzzer.tabs;
+package me.ahornyai.headerfuzzer.tabs.table;
 
 import burp.api.montoya.http.message.HttpHeader;
 import burp.api.montoya.http.message.requests.HttpRequest;
@@ -22,7 +22,15 @@ public class HeaderTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return true;
+        return columnIndex == 0;
+    }
+
+    @Override
+    public void setValueAt(Object newValue, int rowIndex, int columnIndex) {
+        HeaderTableEntry entry = entries.get(rowIndex);
+
+        // The table is only editable in the checkbox column.
+        entry.setConstant((Boolean) newValue);
     }
 
     @Override
@@ -58,17 +66,6 @@ public class HeaderTableModel extends AbstractTableModel {
             case 2 -> entry.getHeader().value();
             default -> "";
         };
-    }
-
-    public synchronized void add(HeaderTableEntry responseReceived) {
-        int index = entries.size();
-        entries.add(responseReceived);
-
-        fireTableRowsInserted(index, index);
-    }
-
-    public synchronized HeaderTableEntry get(int rowIndex) {
-        return entries.get(rowIndex);
     }
 
     public synchronized Optional<Boolean> isConstant(String headerName) {
