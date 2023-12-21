@@ -10,9 +10,6 @@ import me.ahornyai.headerfuzzer.tabs.table.HeaderTableModel;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -57,9 +54,7 @@ public class FuzzerTab extends JSplitPane {
 
         // Launch attack button
         JButton launchAttack = new JButton("Launch attack");
-        launchAttack.addActionListener(actionEvent -> {
-            new AttackWindow(api, tableModel, request);
-        });
+        launchAttack.addActionListener(actionEvent -> new AttackWindow(api));
         leftSplitPane.setRightComponent(launchAttack);
 
         setLeftComponent(leftSplitPane);
