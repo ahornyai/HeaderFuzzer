@@ -10,6 +10,9 @@ import me.ahornyai.headerfuzzer.tabs.table.HeaderTableModel;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -26,7 +29,7 @@ public class FuzzerTab extends JSplitPane {
         this.api = api;
         this.tableModel = new HeaderTableModel();
 
-        initUserInterface();
+        SwingUtilities.invokeLater(this::initUserInterface);
     }
 
     private void initUserInterface() {
@@ -41,17 +44,23 @@ public class FuzzerTab extends JSplitPane {
 
         // Creating the left side of the tab
         JSplitPane leftSplitPane = new JSplitPane(VERTICAL_SPLIT);
-        JTable table = new JTable(tableModel);
+        leftSplitPane.setResizeWeight(0.9d);
 
         // Set the checkbox column size
+        JTable table = new JTable(tableModel);
         TableColumn checkboxColumn = table.getColumnModel().getColumn(0);
         checkboxColumn.setMaxWidth(30);
         checkboxColumn.setResizable(false);
 
-        // TODO: Launch attack pane
         JScrollPane scrollPane = new JScrollPane(table);
         leftSplitPane.setLeftComponent(scrollPane);
-        leftSplitPane.setRightComponent(new JSplitPane());
+
+        // Launch attack button
+        JButton launchAttack = new JButton("Launch attack");
+        launchAttack.addActionListener(actionEvent -> {
+            new AttackWindow(api, tableModel, request);
+        });
+        leftSplitPane.setRightComponent(launchAttack);
 
         setLeftComponent(leftSplitPane);
 
