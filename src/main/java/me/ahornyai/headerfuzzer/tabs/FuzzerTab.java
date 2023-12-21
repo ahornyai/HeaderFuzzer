@@ -10,8 +10,8 @@ import me.ahornyai.headerfuzzer.tabs.table.HeaderTableModel;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class FuzzerTab extends JSplitPane {
@@ -19,6 +19,8 @@ public class FuzzerTab extends JSplitPane {
     private final HeaderTableModel tableModel;
     private HttpRequestEditor requestEditor;
     private HttpRequest request;
+    private AttackWindow attackWindow;
+    private FuzzerLogic fuzzerLogic;
 
     public FuzzerTab(MontoyaApi api) {
         super(JSplitPane.HORIZONTAL_SPLIT);
@@ -54,7 +56,10 @@ public class FuzzerTab extends JSplitPane {
 
         // Launch attack button
         JButton launchAttack = new JButton("Launch attack");
-        launchAttack.addActionListener(actionEvent -> new AttackWindow(api));
+        launchAttack.addActionListener(actionEvent -> {
+            this.attackWindow = new AttackWindow(api);
+            this.fuzzerLogic = new FuzzerLogic(api, request, tableModel.getEntries());
+        });
         leftSplitPane.setRightComponent(launchAttack);
 
         setLeftComponent(leftSplitPane);

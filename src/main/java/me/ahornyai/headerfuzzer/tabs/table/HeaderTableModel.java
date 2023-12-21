@@ -2,17 +2,19 @@ package me.ahornyai.headerfuzzer.tabs.table;
 
 import burp.api.montoya.http.message.HttpHeader;
 import burp.api.montoya.http.message.requests.HttpRequest;
+import lombok.Getter;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+@Getter
 public class HeaderTableModel extends AbstractTableModel {
     private List<HeaderTableEntry> entries;
 
     public HeaderTableModel() {
-        this.entries = new ArrayList<>();
+        this.entries = new CopyOnWriteArrayList<>();
     }
 
     @Override
@@ -81,7 +83,7 @@ public class HeaderTableModel extends AbstractTableModel {
     //TODO: Use HashMap for better performance, this is a naive solution
     public synchronized void updateModel(HttpRequest request) {
         List<HttpHeader> requestHeaders = request.headers();
-        List<HeaderTableEntry> newEntries = new ArrayList<>();
+        List<HeaderTableEntry> newEntries = new CopyOnWriteArrayList<>();
 
         // Update the existing headers (the constant boolean will be the same) and add the new headers
         for (HttpHeader header : requestHeaders) {

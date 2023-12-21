@@ -4,14 +4,14 @@ import burp.api.montoya.http.message.HttpRequestResponse;
 import burp.api.montoya.http.message.MimeType;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RequestTableModel extends AbstractTableModel {
     private final List<HttpRequestResponse> entries;
 
     public RequestTableModel() {
-        this.entries = new ArrayList<>();
+        this.entries = new CopyOnWriteArrayList<>();
     }
 
     @Override
